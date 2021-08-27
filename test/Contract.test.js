@@ -11,7 +11,7 @@ describe("Contract", function () {
         this.alpha = this.signers[0]
         this.beta = this.signers[1]
         this.omega = this.signers[2]
-        this.agreement = " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer venenatis, quam at " +
+        this.agreement = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer venenatis, quam at " +
             "malesuada aliquam, magna purus pharetra justo, at dictum felis leo in massa. Vivamus iaculis euismod " +
             "nisi vitae efficitur. Sed mattis lobortis tortor vel ullamcorper. Nunc eget rhoncus ligula. Curabitur " +
             "convallis, augue non aliquet volutpat, ex nisi porttitor dolor, eget mollis lectus metus at ipsum. " +
@@ -22,11 +22,12 @@ describe("Contract", function () {
             "ligula ut, pharetra blandit eros. Curabitur aliquam libero et auctor tincidunt. Aenean nec tincidunt "+
             "erat. Integer hendrerit, felis eu tincidunt mattis, purus ligula finibus nunc, et tristique augue sapien "+
             "et tortor. Mauris eu nulla id turpis bibendum consequat ut eu nisl. Ut malesuada erat at ultricies "+
-            "dapibus. Vivamus fringilla fringilla diam, vitae imperdiet sem pretium id. ";
+            "dapibus. Vivamus fringilla fringilla diam, vitae imperdiet sem pretium id."
+        this.signers = [this.alpha.address, this.beta.address]
     })
 
     beforeEach(async function () {
-        this.contract = await this.CONTRACT.deploy([this.alpha.address, this.beta.address], this.agreement)
+        this.contract = await this.CONTRACT.deploy(this.signers, this.agreement)
         await this.contract.deployed()
     })
 

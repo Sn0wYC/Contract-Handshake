@@ -8,16 +8,6 @@ contract ContractHandshake
 
     string private agreement;
 
-    modifier onlySigners() {
-        for(uint index = 0; index < signers.length; index++){
-            if(signers[index]==msg.sender){
-                _;
-                return;
-            }
-        }
-        revert("Can only be called by whitelisted signers");
-    }
-
     event Signature (address _signer);
 
     constructor (
@@ -29,12 +19,19 @@ contract ContractHandshake
     }
 
     function sign(
-    ) external onlySigners {
+    ) external {
         if (signatures[msg.sender]) {
             revert("User already signed");
         }
-        signatures[msg.sender] = true;
-        emit Signature(msg.sender);
+
+        for(uint index = 0; index < signers.length; index++){
+            if(signers[index]==msg.sender){
+                signatures[msg.sender] = true;
+                emit Signature(msg.sender);
+                return;
+            }
+        }
+        revert("Can only be called by whitelisted signers");
     }
 
     function hasSigned(address _signer) external view returns (bool) {
